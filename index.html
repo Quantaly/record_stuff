@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Record Stuff</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="module" src="main.js"></script>
+</head>
+
+<body>
+    <div id="vue">
+        <h1>Record Stuff</h1>
+        <main>
+            <div class="config">
+                <div>
+                    <label for="audio-src">Audio source</label>
+                    <select id="audio-src" :disabled="recording" @input="selectAudio">
+                        <option value="none">None</option>
+                        <option v-if="audioInputAvailable" value="mic">Microphone</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="video-src">Video source</label>
+                    <select id="video-src" :disabled="recording" @input="selectVideo">
+                        <option value="none">None</option>
+                        <option v-if="videoInputAvailable" value="cam">Camera</option>
+                        <option value="screen">Screen capture</option>
+                    </select>
+                </div>
+            </div>
+            <div class="preview-container">
+                <video id="preview"></video>
+                <button id="start" :disabled="recording" @click="startRecording">Start recording</button>
+                <button id="stop" :disabled="!recording" @click="stopRecording">Stop recording</button>
+            </div>
+            <div class="output">
+                <p v-if="outputSrc === null">Output goes here</p>
+                <video controls :src="outputSrc" v-if="outputSrc !== null"></video>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>
